@@ -65,7 +65,7 @@ public class TestPersistence {
 		PersistenceXStream.setAlias("event",Event.class);
 		PersistenceXStream.setAlias("partcipant", Participant.class);
 		PersistenceXStream.setAlias("registration", Registration.class);
-		if(!PersistenceXStream.saveToXMLwithXstream(rm)){
+		if(!PersistenceXStream.saveToXMLwithXStream(rm)){
 			fail("could not save file. " );
 			
 			//clear the model in memory
@@ -75,7 +75,7 @@ public class TestPersistence {
 			assertEquals(0, rm.getRegistrations().size());
 			
 			//load model
-			rm= (RegistrationManager) PersistenceXStream.loadFRomXMLwithXStream();
+			rm= (RegistrationManager) PersistenceXStream.loadFromXMLwithXStream();
 			if(rm == null)
 				fail("Could not load file.");
 			
