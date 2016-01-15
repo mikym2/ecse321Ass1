@@ -1,4 +1,4 @@
-package ecse321Ass1;
+package ca.mcgill.ecse321.eventregistration.persistence;
 
 import static org.junit.Assert.*;
 
@@ -11,10 +11,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import ecse321.eventregistration.model.Event;
-import ecse321.eventregistration.model.Participant;
-import ecse321.eventregistration.model.Registration;
-import ecse321.eventregistration.model.RegistrationManager;
+import ca.mcgill.ecse321.eventregistration.model.Event;
+import ca.mcgill.ecse321.eventregistration.model.Participant;
+import ca.mcgill.ecse321.eventregistration.model.Registration;
+import ca.mcgill.ecse321.eventregistration.model.RegistrationManager;
+import ca.mcgill.ecse321.eventregistration.persistence.PersistenceXStream;
 
 public class TestPersistence {
 
@@ -87,8 +88,21 @@ public class TestPersistence {
 			assertEquals(1, rm.getEvents().size());
 			assertEquals("Concert", rm.getEvent(0).getName());
 			Calendar c = Calendar.getInstance();
-			c.set(2015, Calendar.SEPTEMBER,15,8,30,0);;
+			c.set(2015, Calendar.SEPTEMBER,15,8,30,0);
+			Date eventDate = new Date(c.getTimeInMillis());
+			Time startTime = new Time(c.getTimeInMillis());
+			c.set(2015,Calendar.SEPTEMBER,15,8,30,0);
+			Time endTime = new Time(c.getTimeInMillis());
+			assertEquals(eventDate.toString(),rm.getEvent(0).getEventDate().toString());
+			assertEquals(startTime.toString(),rm.getEvent(0).getStartTime().toString());
+			assertEquals(endTime.toString(),rm.getEvent(0).getEndTime().toString());
 			
+			//check registrations 
+			assertEquals(2, rm.getRegistrations().size());
+			assertEquals(rm.getEvent(0), rm.getRegistration(0).getEvent());
+			assertEquals(rm.getParticipant(0),rm.getRegistration(0).getParticipant());
+			assertEquals(rm.getEvent(0),rm.getRegistration(1).getEvent());
+			assertEquals(rm.getParticipant(1),rm.getRegistration(1).getParticipant());
 			
 		}
 		
