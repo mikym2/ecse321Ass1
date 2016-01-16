@@ -1,6 +1,6 @@
 package ca.mcgill.ecse321.eventregistration.persistence;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.*; 
 
 import java.io.File;
 import java.sql.Date;
@@ -16,6 +16,7 @@ import ca.mcgill.ecse321.eventregistration.model.Participant;
 import ca.mcgill.ecse321.eventregistration.model.Registration;
 import ca.mcgill.ecse321.eventregistration.model.RegistrationManager;
 import ca.mcgill.ecse321.eventregistration.persistence.PersistenceXStream;
+import ca.mcgill.ecse321.eventregistration.persistence.TestPersistence;
 
 public class TestPersistence {
 
@@ -29,7 +30,7 @@ public class TestPersistence {
 		
 		//create event 
 		Calendar c = Calendar.getInstance();
-		c.set(2105,Calendar.SEPTEMBER,15,10,0,0);
+		c.set(2105,Calendar.SEPTEMBER,15,8,30,0);
 		Date eventDate = new Date(c.getTimeInMillis());
 		Time startTime = new Time(c.getTimeInMillis());
         c.set(2015, Calendar.SEPTEMBER,15,10,0,0);
@@ -59,15 +60,17 @@ public class TestPersistence {
 
 	@Test
 	public void test() {
+		//save model
 		RegistrationManager rm = RegistrationManager.getInstance();
-		PersistenceXStream.setFilename("test"+File.separator+"ca"+File.separator+"mcgill"+File.separator+"event"+
+		PersistenceXStream.setFilename("test"+File.separator+"ca"+File.separator+"mcgill"+File.separator+"ecse321"+File.separator+"event"+
 		File.separator + "persistance" + File.separator+"data.xml");
 		PersistenceXStream.setAlias("event",Event.class);
 		PersistenceXStream.setAlias("partcipant", Participant.class);
 		PersistenceXStream.setAlias("registration", Registration.class);
-		if(!PersistenceXStream.saveToXMLwithXStream(rm)){
+		PersistenceXStream.setAlias("manager", RegistrationManager.class);
+		if(!PersistenceXStream.saveToXMLwithXStream(rm))
 			fail("could not save file. " );
-			
+		
 			//clear the model in memory
 			rm.delete();
 			assertEquals(0, rm.getParticipants().size());
@@ -82,7 +85,7 @@ public class TestPersistence {
 			//check participants
 			assertEquals(2, rm.getParticipants().size());
 			assertEquals("Martin",rm.getParticipant(0).getName());
-			assertEquals("JEnnifer",rm.getParticipant(1).getName());
+			assertEquals("Jennifer",rm.getParticipant(1).getName());
 		
 			//check event 
 			assertEquals(1, rm.getEvents().size());
@@ -91,7 +94,7 @@ public class TestPersistence {
 			c.set(2015, Calendar.SEPTEMBER,15,8,30,0);
 			Date eventDate = new Date(c.getTimeInMillis());
 			Time startTime = new Time(c.getTimeInMillis());
-			c.set(2015,Calendar.SEPTEMBER,15,8,30,0);
+			c.set(2015,Calendar.SEPTEMBER,15,10,30,0);
 			Time endTime = new Time(c.getTimeInMillis());
 			assertEquals(eventDate.toString(),rm.getEvent(0).getEventDate().toString());
 			assertEquals(startTime.toString(),rm.getEvent(0).getStartTime().toString());
@@ -106,7 +109,7 @@ public class TestPersistence {
 			
 		}
 		
-	}
+	
 	
 	
 
