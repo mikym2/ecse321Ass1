@@ -23,7 +23,7 @@ public class TestEventRegistrationController {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-	PersistenceXStream.setFilename("test"+File.separator+"ca"+File.separator+"mcgill"+File.separator+"ecse321"+File.separator+"event"+
+	PersistenceXStream.setFilename("test"+File.separator+"ca"+File.separator+"mcgill"+File.separator+"ecse321"+File.separator+"eventregistration"+
 			File.separator+"controller"+File.separator+"data.xml");
 	PersistenceXStream.setAlias("event", Event.class);
 	PersistenceXStream.setAlias("participant", Participant.class);
@@ -106,7 +106,7 @@ public class TestEventRegistrationController {
 		}
 		
 		//check error
-		assertEquals("Participant name cannot be empty", error);
+		assertEquals("Participant name cannot be empty!", error);
 		
 		//check no change in memory
 		assertEquals(0, rm.getParticipants().size());
@@ -186,7 +186,7 @@ public class TestEventRegistrationController {
 		}
 	
 		//check error 
-		assertEquals("Event name cannot be empty! Event date cannot be empty! Event start time cannot be empty! Event end time cannot be empty", error);
+		assertEquals("Event name cannot be empty!Event date cannot be empty!Event start time cannot be empty!Event end time cannot be empty!", error);
 	
 		//check this model in memeory
 		assertEquals(0, rm.getEvents().size());
@@ -259,7 +259,7 @@ public class TestEventRegistrationController {
 		c.set(2016, Calendar.OCTOBER,16,9,00,0);
 		Date eventDate = new Date(c.getTimeInMillis());
 		Time startTime = new Time(c.getTimeInMillis());
-		c.set(2106, Calendar.OCTOBER,16,8,59,59);
+		c.set(2016, Calendar.OCTOBER,16,8,59,59);
 		Time endTime = new Time(c.getTimeInMillis());
 		
 		String error = null;
@@ -336,7 +336,7 @@ public class TestEventRegistrationController {
 		}
 		
 		//check error 
-		assertEquals("Particicpant needs to be selected for registration! Event needs to be selected for registration", error);
+		assertEquals("Particicpant needs to be selected for registration!Event needs to be selected for registration!", error);
 		
 		//check model in memory
 		assertEquals(0, rm.getRegistrations().size());
@@ -376,7 +376,7 @@ public class TestEventRegistrationController {
 		}
 		
 		//check error 
-		assertEquals("Particicpant does not  exist!! Event does not exist!", error);
+		assertEquals("Participant does not exist!Event does not exist!", error);
 				
 		//check model in memory
 		assertEquals(0, rm.getRegistrations().size());
@@ -398,7 +398,7 @@ public class TestEventRegistrationController {
 		assertEquals(1, rm2.getEvents().size());
 		assertEquals(name, rm2.getEvent(0).getName());
 		assertEquals(eventDate.toString(), rm2.getEvent(0).getEventDate().toString());
-		assertEquals(startTime.toString(), rm2.getEvent(0).getEventDate().toString());
+		assertEquals(startTime.toString(), rm2.getEvent(0).getStartTime().toString());
 		assertEquals(endTime.toString(), rm2.getEvent(0).getEndTime().toString());
 		assertEquals(0, rm2.getRegistrations().size());
 	}

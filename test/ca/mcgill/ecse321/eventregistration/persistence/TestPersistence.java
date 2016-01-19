@@ -20,7 +20,7 @@ import ca.mcgill.ecse321.eventregistration.persistence.TestPersistence;
 
 public class TestPersistence {
 
-	@Before
+	@Before 
 	public void setUp() throws Exception {
 		RegistrationManager rm = RegistrationManager.getInstance();
 	
@@ -30,10 +30,10 @@ public class TestPersistence {
 		
 		//create event 
 		Calendar c = Calendar.getInstance();
-		c.set(2105,Calendar.SEPTEMBER,15,8,30,0);
+		c.set(2015,Calendar.SEPTEMBER,15,8,30,0);
 		Date eventDate = new Date(c.getTimeInMillis());
 		Time startTime = new Time(c.getTimeInMillis());
-        c.set(2015, Calendar.SEPTEMBER,15,10,0,0);
+        c.set(2015, Calendar.SEPTEMBER,15,10,30,0);
         Time endTime = new Time(c.getTimeInMillis());
         Event ev = new Event("Concert",eventDate, startTime, endTime);
         
@@ -62,18 +62,18 @@ public class TestPersistence {
 	public void test() {
 		//save model
 		RegistrationManager rm = RegistrationManager.getInstance();
-		PersistenceXStream.setFilename("test"+File.separator+"ca"+File.separator+"mcgill"+File.separator+"ecse321"+File.separator+"event"+
-		File.separator + "persistance" + File.separator+"data.xml");
+		PersistenceXStream.setFilename("test"+File.separator+"ca"+File.separator+"mcgill"+File.separator+"ecse321"+File.separator+"eventregistration"+
+		File.separator + "persistence" + File.separator+"data.xml");
 		PersistenceXStream.setAlias("event",Event.class);
 		PersistenceXStream.setAlias("partcipant", Participant.class);
 		PersistenceXStream.setAlias("registration", Registration.class);
 		PersistenceXStream.setAlias("manager", RegistrationManager.class);
-		if(!PersistenceXStream.saveToXMLwithXStream(rm))
-			fail("could not save file. " );
+		if(!PersistenceXStream.saveToXMLwithXStream(rm)) //only saving the registration manager that has access to the other class
+			fail("could not save file." );
 		
 			//clear the model in memory
 			rm.delete();
-			assertEquals(0, rm.getParticipants().size());
+			assertEquals(0, rm.getParticipants().size()); //check if smt is correct, eg: assetting that the# is somethoing precise if not the case then there' s a problem 
 			assertEquals(0, rm.getEvents().size());
 			assertEquals(0, rm.getRegistrations().size());
 			

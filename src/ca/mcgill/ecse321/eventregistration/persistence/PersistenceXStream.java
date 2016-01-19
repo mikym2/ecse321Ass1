@@ -1,6 +1,6 @@
-package ca.mcgill.ecse321.eventregistration.persistence;
+ package ca.mcgill.ecse321.eventregistration.persistence;
 
-import java.io.FileReader;
+import java.io.FileReader; 
 import java.io.FileWriter;
 import java.io.IOException;
 

@@ -18,7 +18,7 @@ public class EventRegistrationController {
 	public void createParticipant(String name) throws InvalidInputException
 	{
 		if (name == null || name.trim().length() ==0)
-			throw new InvalidInputException("Participant name cannot be empty");
+			throw new InvalidInputException("Participant name cannot be empty!");
 		Participant p = new Participant(name);
 		RegistrationManager rm = RegistrationManager.getInstance();
 		rm.addParticipant(p);
@@ -35,7 +35,7 @@ public class EventRegistrationController {
 			if(startTime == null)
 				error = error +"Event start time cannot be empty!";
 			if( endTime == null)
-				error = error + "Event enf time cannot be empty!";
+				error = error + "Event end time cannot be empty!";
 			if(endTime != null && startTime != null && endTime.getTime()< startTime.getTime())
 				error = error + "Event end time cannot be before event start time!";
 			error = error.trim();
@@ -56,11 +56,11 @@ public class EventRegistrationController {
     	
     	String error = "";
     	if(participant == null)
-    		error = error +"Particicpant needs tobe selected for regostration!";
+    		error = error +"Particicpant needs to be selected for registration!";
     	else if (!rm.getParticipants().contains(participant))
-    		error = error + "Partcicpant does not exist";
+    		error = error + "Participant does not exist!";
     	if(event == null)
-    		error = error +"Event needs to be slected for registration";
+    		error = error +"Event needs to be selected for registration!";
     	else if(!rm.getEvents().contains(event))
     		error = error + "Event does not exist!";
         error.trim();
