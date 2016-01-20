@@ -1,5 +1,7 @@
 package ca.mcgill.ecse321.eventregistration.persistence;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Iterator;
 
 import ca.mcgill.ecse321.eventregistration.model.Event;
@@ -18,9 +20,13 @@ public class PersistenceEventRegistration {
 		
 	}
 	
+	
 	public static void loadEventRegistrationModel(){
 		RegistrationManager rm = RegistrationManager.getInstance();
+		
+		
 		PersistenceEventRegistration.initialiazeXStream();
+		
 		RegistrationManager rm2 = (RegistrationManager)PersistenceXStream.loadFromXMLwithXStream();
 		if(rm2 != null){
 			//unfortunatly , this creates a second REgistrarion Manager object, even thoit is a singleton
@@ -29,7 +35,7 @@ public class PersistenceEventRegistration {
 			while(pIt.hasNext())
 				rm.addParticipant(pIt.next());
 			Iterator<Event> eIt = rm2.getEvents().iterator();
-			while(eIt.hasNext());
+			while(eIt.hasNext())
 				rm.addEvent(eIt.next());
 			Iterator<Registration> rIt = rm2.getRegistrations().iterator();
 			while(rIt.hasNext())
@@ -38,5 +44,7 @@ public class PersistenceEventRegistration {
 	
 	
 	}
+	
+
 
 }
